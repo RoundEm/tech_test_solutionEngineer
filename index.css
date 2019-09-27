@@ -29,13 +29,8 @@ span:first-of-type {
     grid-gap: 15px;
 }
 
-@media(max-width: 768px) {
-    .ads_container {
-        grid-template-columns: 1fr 1fr;
-    }
-}
 
-@media(max-width: 640px) {
+@media(max-width: 768px) {
     .ads_container {
         grid-template-columns: 1fr;
     }
@@ -54,7 +49,12 @@ span:first-of-type {
 
 img {
     object-fit: cover;
+    display: block;
     width: 100%;
+}
+
+img:hover {
+    box-shadow: 2px 2px 5px #ccc;
 }
 
 .title {
