@@ -24,7 +24,7 @@ getWidgetData()
 function renderAds(data) {
     const adsContainer = document.getElementsByClassName('ads_container')[0]
     
-    data.list.forEach((item, i) => {
+    data.list.forEach(item => {
         let itemContainer = document.createElement('div')
         let title = item.name
         let category = item.categories[0]
