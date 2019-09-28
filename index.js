@@ -11,8 +11,7 @@ async function getWidgetData() {
 }
 
 async function getIpInfo() {
-    let data = await (await fetch('https://ip-api.com/json')).json()
-    console.log('getIpInfo data: ', data)
+    let data = await (await fetch('http://ip-api.com/json')).json()
     return data
 }
 
@@ -31,54 +30,52 @@ function renderAds(data) {
         let category = item.categories[0]
         let destinationUrl = item.url
 
-        // TODO: Figure out how to make this DRY so the <a> code isn't being repeated
-        const itemHtml = `
+        const openingLinkTag = `
             <a 
                 href=${destinationUrl}
-                title=${title}
+                title="${title}"
                 target="_blank"
             >
-                <img 
-                    height="300"
-                    alt="Image for ${category ? category : 'an'} advertisement"
-                    src=${item.thumbnail[0].url}
-                />
-            </a>
-
-            <a 
-                href=${destinationUrl}
-                title=${title}
-                target="_blank"
-            >
-                <span class="title ellipses">${title}</branding>
-            </a>
-
-            <a 
-                href=${destinationUrl}
-                title=${title}
-                target="_blank"
-            >
-                <span class="branding">
-                    ${item.branding} ${category ? `| (${category})` : ''}
-                </span>
-            </a>
-
         `
-        itemContainer.innerHTML += itemHtml
+        function createLinkedElement(element) {
+            const parts = [openingLinkTag, element, '</a>']
+            return parts.join('')
+        }
+
+        let _image = createLinkedElement(`
+            <img 
+                height="300"
+                alt="Image for ${category ? category : 'an'} advertisement"
+                src=${item.thumbnail[0].url}
+                class="thumb"
+            />
+        `)
+
+        let _title = createLinkedElement(`
+            <span class="title ellipses">${title}</span>
+        `)
+
+        let _branding = createLinkedElement(`
+            <span class="branding">
+                ${item.branding} ${category ? `(${category})` : ''}
+            </span>
+        `)
         
-        adsContainer.appendChild(itemContainer)
+        itemContainer.innerHTML = `${_image} ${_title} ${_branding}`
+        
+        adsContainer.append(itemContainer)
     })
 } 
 
 getIpInfo()
     .then(data => {
-        console.log('ip data: ', data)
         formatHeaderLang(data)
     })
     .catch(error => console.log(error))
 
 function formatHeaderLang(ipInfo) {
     const { country } = ipInfo
+    // const country = 'not US'
     const header = document.getElementsByClassName('header_span')[0]
     if (country.toLowerCase() !== 'united states') {
         header.innerHTML = 'Tu Peux Aimer'

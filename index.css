@@ -52,7 +52,7 @@ span:first-of-type {
     font-size: .75em;
 }
 
-img {
+img.thumb {
     object-fit: cover;
     width: 100%;
 }
