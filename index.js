@@ -11,9 +11,7 @@ async function getWidgetData() {
 }
 
 async function getIpInfo() {
-	console.log('getIpInfo ran')
     let data = await (await fetch('http://ip-api.com/json')).json()
-    console.log('getIpInfo data: ', data)
     return data
 }
 
@@ -32,7 +30,7 @@ function renderAds(data) {
         let category = item.categories[0]
         let destinationUrl = item.url
 
-        // TODO: is there a resonable way to make this DRY so the <a> code isn't being repeated?
+        // TODO: is there a resonable way to make these <a> elements DRY?
         const itemHtml = `
             <a 
                 href=${destinationUrl}
@@ -72,16 +70,14 @@ function renderAds(data) {
 
 getIpInfo()
     .then(data => {
-        console.log('ip data: ', data)
         formatHeaderLang(data)
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log('getIpInfo error: ', error))
 
 function formatHeaderLang(ipInfo) {
-//     const { country } = ipInfo
-    const country = 'not US'
+    const { country } = ipInfo
+    // const country = 'not US'
     const header = document.getElementsByClassName('header_span')[0]
-console.log('header: ', header)
     if (country.toLowerCase() !== 'united states') {
         header.innerHTML = 'Tu Peux Aimer'
     } else {
