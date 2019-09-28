@@ -47,14 +47,14 @@ span:first-of-type {
     font-size: .75em;
 }
 
-img {
+img.thumb {
     object-fit: cover;
     display: block;
     width: 100%;
 }
 
-img:hover {
-    box-shadow: 2px 2px 5px #ccc;
+img.thumb:hover {
+    box-shadow: 2px 2px 5px rgb(193, 193, 193);
 }
 
 .title {
@@ -62,7 +62,7 @@ img:hover {
     margin: 3px 0 5px;
 }
 
-a .title:hover {
+a .title:hover, .disclosure a:hover {
     text-decoration: underline;
 }
 

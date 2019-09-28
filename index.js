@@ -30,7 +30,8 @@ function renderAds(data) {
         let category = item.categories[0]
         let destinationUrl = item.url
 
-        // TODO: is there a resonable way to make these <a> elements DRY?
+        // I also made another branch that adds code to make this part DRY by not repeating the wrapping <a> tag that is the same for all 3 elements but it's probably harder to understand and just as many lines of code. If you want you can check out the branch here:
+        // https://github.com/RoundEm/tech_test_solutionEngineer/blob/9153786a1a05fddd5b25d244732cd12e405c2184/index.js#L33
         const itemHtml = `
             <a 
                 href=${destinationUrl}
@@ -41,6 +42,7 @@ function renderAds(data) {
                     height="300"
                     alt="Image for ${category ? category : 'an'} advertisement"
                     src=${item.thumbnail[0].url}
+                    class="thumb"
                 />
             </a>
         
